@@ -39,77 +39,76 @@ window.onload = function() {
 };
 
 undoBtn.addEventListener("click", () => {
-if (historyIndex > 0) {
-    historyIndex--;
-    editor.innerHTML = history[historyIndex];
-    addEventListenersToTextBoxes();
-}
+    if (historyIndex > 0) {
+        historyIndex--;
+        editor.innerHTML = history[historyIndex];
+        addEventListenersToTextBoxes();
+    }
 });
 
 redoBtn.addEventListener("click", () => {
-if (historyIndex < history.length - 1) {
-    historyIndex++;
-    editor.innerHTML = history[historyIndex];
-    addEventListenersToTextBoxes();
-}
+    if (historyIndex < history.length - 1) {
+        historyIndex++;
+        editor.innerHTML = history[historyIndex];
+        addEventListenersToTextBoxes();
+    }
 });
 
 boldBtn.addEventListener("click", () => {
-applyCommand("bold");
+    applyCommand("bold");
 });
 
 italicBtn.addEventListener("click", () => {
-applyCommand("italic");
+    applyCommand("italic");
 });
 
 underlineBtn.addEventListener("click", () => {
-applyCommand("underline");
+    applyCommand("underline");
 });
 
 fontDropdown.addEventListener("change", () => {
-const font = fontDropdown.value;
-applyCommand("fontName", font);
+    const font = fontDropdown.value;
+    applyCommand("fontName", font);
 });
 
 increaseFontBtn.addEventListener("click", () => {
-adjustFontSize(1);
+    adjustFontSize(1);
 });
 
 decreaseFontBtn.addEventListener("click", () => {
-adjustFontSize(-1);
+    adjustFontSize(-1);
 });
 
 addTextBtn.addEventListener("click", () => {
-const newDiv = document.createElement("div");
-newDiv.contentEditable = true;
-newDiv.className = "text-box empty"; 
-newDiv.innerHTML = ''; 
-newDiv.draggable = true;
-newDiv.style.width = "100px"; 
-newDiv.style.height = "50px"; 
-const deleteIcon = document.createElement("img");
-deleteIcon.src = "./assets/delete.png"; 
-deleteIcon.className = "delete-icon";
-newDiv.appendChild(deleteIcon);
-editor.appendChild(newDiv);
-newDiv.focus(); 
-saveState();
-makeDraggable(newDiv); 
-addEventListenersToTextBoxes();
+    const newDiv = document.createElement("div");
+    newDiv.contentEditable = true;
+    newDiv.className = "text-box empty"; 
+    newDiv.innerHTML = ''; 
+    newDiv.draggable = true;
+    newDiv.style.width = "100px"; 
+    newDiv.style.height = "50px"; 
+    const deleteIcon = document.createElement("img");
+    deleteIcon.src = "./assets/delete.png"; 
+    deleteIcon.className = "delete-icon";
+    newDiv.appendChild(deleteIcon);
+    editor.appendChild(newDiv);
+    newDiv.focus(); 
+    saveState();
+    makeDraggable(newDiv); 
+    addEventListenersToTextBoxes();
 });
 
 clearBtn.addEventListener("click", () => {
-editor.innerHTML = '';
-history = [];
-historyIndex = -1;
-localStorage.removeItem("editorState");
-saveState();
+    editor.innerHTML = '';
+    history = [];
+    historyIndex = -1;
+    localStorage.removeItem("editorState");
+    saveState();
 });
 
 saveBtn.addEventListener("click", () => {
     const pdfName = prompt("Enter PDF name:");
     if (pdfName) {
-        // Import jsPDF from the window object
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
@@ -122,122 +121,115 @@ saveBtn.addEventListener("click", () => {
     }
 });
 
-
 leftAlignBtn.addEventListener("click", () => {
-applyTextAlignment("left");
+    applyTextAlignment("left");
 });
 
 centerAlignBtn.addEventListener("click", () => {
-applyTextAlignment("center");
+    applyTextAlignment("center");
 });
 
 rightAlignBtn.addEventListener("click", () => {
-applyTextAlignment("right");
+    applyTextAlignment("right");
 });
 
 function applyTextAlignment(alignment) {
-if (activeTextBox) {
-    activeTextBox.style.textAlign = alignment;
-    saveState();
-}
+    if (activeTextBox) {
+        activeTextBox.style.textAlign = alignment;
+        saveState();
+    }
 }
 
 function applyCommand(command, value = null) {
-if (activeTextBox) {
-    activeTextBox.focus();
-    document.execCommand(command, false, value);
-}
-saveState();
+    if (activeTextBox) {
+        activeTextBox.focus();
+        document.execCommand(command, false, value);
+    }
+    saveState();
 }
 
-// Helper to adjust font size
 function adjustFontSize(delta) {
-if (activeTextBox) {
-    const currentSize = parseInt(window.getComputedStyle(activeTextBox).fontSize);
-    const newSize = currentSize + delta;
-    activeTextBox.style.fontSize = `${newSize}px`;
-    saveState();
-}
+    if (activeTextBox) {
+        const currentSize = parseInt(window.getComputedStyle(activeTextBox).fontSize);
+        const newSize = currentSize + delta;
+        activeTextBox.style.fontSize = `${newSize}px`;
+        saveState();
+    }
 }
 
-// Handle text box input
 function handleTextBoxInput(box) {
-if (box.innerHTML.trim() === '') {
-    box.classList.add("empty");
-} else {
-    box.classList.remove("empty");
-}
+    if (box.innerHTML.trim() === '') {
+        box.classList.add("empty");
+    } else {
+        box.classList.remove("empty");
+    }
 }
 
-// Show delete icon for 2 seconds
 function showDeleteIcon(box) {
-const deleteIcon = box.querySelector(".delete-icon");
-if (deleteIcon) {
-    deleteIcon.style.display = "block";
-    setTimeout(() => {
-        deleteIcon.style.display = "none";
-    }, 2000); // Hide after 2 seconds
-}
+    const deleteIcon = box.querySelector(".delete-icon");
+    if (deleteIcon) {
+        deleteIcon.style.display = "block";
+        setTimeout(() => {
+            deleteIcon.style.display = "none";
+        }, 2000);
+    }
 }
 
-// Handle delete icon click
 document.addEventListener("click", (event) => {
-if (event.target.classList.contains("delete-icon")) {
-    event.target.parentElement.remove();
-    saveState();
-}
+    if (event.target.classList.contains("delete-icon")) {
+        event.target.parentElement.remove();
+        saveState();
+    }
 });
 
-// Make the text box draggable
 function makeDraggable(element) {
-let offsetX, offsetY;
+    let offsetX, offsetY;
 
-element.addEventListener('dragstart', (e) => {
-    offsetX = e.offsetX;
-    offsetY = e.offsetY;
-    element.style.cursor = 'grabbing';
-});
+    element.addEventListener('dragstart', (e) => {
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+        element.style.cursor = 'grabbing';
+    });
 
-element.addEventListener('dragend', (e) => {
-    const editorRect = editor.getBoundingClientRect();
-    const newX = e.clientX - editorRect.left - offsetX;
-    const newY = e.clientY - editorRect.top - offsetY;
+    element.addEventListener('dragend', (e) => {
+        const editorRect = editor.getBoundingClientRect();
+        const newX = e.clientX - editorRect.left - offsetX;
+        const newY = e.clientY - editorRect.top - offsetY;
 
-    // Ensure text box stays within the editor
-    const editorWidth = editor.offsetWidth;
-    const editorHeight = editor.offsetHeight;
+        const editorWidth = editor.offsetWidth;
+        const editorHeight = editor.offsetHeight;
 
-    const elementWidth = element.offsetWidth;
-    const elementHeight = element.offsetHeight;
+        const elementWidth = element.offsetWidth;
+        const elementHeight = element.offsetHeight;
 
-    const constrainedX = Math.min(Math.max(0, newX), editorWidth - elementWidth);
-    const constrainedY = Math.min(Math.max(0, newY), editorHeight - elementHeight);
+        const constrainedX = Math.min(Math.max(0, newX), editorWidth - elementWidth);
+        const constrainedY = Math.min(Math.max(0, newY), editorHeight - elementHeight);
 
-    element.style.left = `${constrainedX}px`;
-    element.style.top = `${constrainedY}px`;
-    element.style.cursor = 'grab';
-    saveState();
-});
+        element.style.left = `${constrainedX}px`;
+        element.style.top = `${constrainedY}px`;
+        element.style.cursor = 'grab';
+        saveState();
+    });
 
-element.addEventListener('drag', (e) => {
-    e.preventDefault(); 
-});
+    element.addEventListener('drag', (e) => {
+        e.preventDefault();
+    });
 
-element.addEventListener("click", () => {
-    activeTextBox = element; 
-    showDeleteIcon(element); 
-});
+    element.addEventListener("click", () => {
+        activeTextBox = element;
+        showDeleteIcon(element); 
+    });
 }
 
 function addEventListenersToTextBoxes() {
-document.querySelectorAll(".text-box").forEach(box => {
-    makeDraggable(box);
-    box.addEventListener("click", () => {
-        activeTextBox = box;
-        showDeleteIcon(box);
+    document.querySelectorAll(".text-box").forEach(box => {
+        makeDraggable(box);
+        box.addEventListener("click", () => {
+            activeTextBox = box;
+            showDeleteIcon(box);
+        });
+        box.addEventListener("input", () => {
+            handleTextBoxInput(box);
+        });
     });
-    box.addEventListener("input", () => {
-        handleTextBoxInput(box);
-    });
-});
 }

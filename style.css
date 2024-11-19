@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,9 +9,9 @@ body {
     flex-direction: column;
 }
 
-
 .top-toolbar {
     display: flex;
+    align-items: center;
     justify-content: center;
     padding: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -21,8 +20,29 @@ body {
     top: 0;
     width: 100%;
     z-index: 10;
+    height: 60px;
 }
 
+.logo-container {
+    position: absolute;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 120px;
+    height: 80px;
+}
+
+.toolbar-buttons {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 .editor-container {
     flex-grow: 1;
@@ -50,7 +70,6 @@ body {
     background-color: #fff;
 }
 
-
 .bottom-toolbar {
     display: flex;
     justify-content: center;
@@ -67,7 +86,7 @@ body {
     margin: 5px;
     font-size: 16px;
     border: none;
-    background-color: #ffffff; /* Changed to white */
+    background-color: #ffffff;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease;
     cursor: pointer;
@@ -81,7 +100,6 @@ body {
 .toolbar-btn:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
-
 
 .add-text-container {
     display: flex;
@@ -104,13 +122,11 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease;
 }
 
 .add-text-btn:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
-
 
 .text-box {
     border: 1px solid #aaa;
@@ -120,10 +136,10 @@ body {
     background-color: #fff;
     cursor: grab;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    min-width: 200px; /* Set minimum width */
-    min-height: 50px; /* Set minimum height */
-    resize: both; /* Allow resizing */
-    overflow: auto; /* Add scrollbars if needed */
+    min-width: 200px;
+    min-height: 50px;
+    resize: both;
+    overflow: auto;
 }
 
 .text-box.empty {
@@ -145,49 +161,11 @@ body {
     font-size: 16px;
 }
 
-
-
-/* Top toolbar layout */
-.top-toolbar {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    height: 60px; /* Ensure consistent height */
-}
-
-/* Logo aligned to the left */
-.logo-container {
-    position: absolute;
-    left: 10px; /* Adjust as needed */
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    width: 120px;
-    height: 80px;
-}
-
-/* Toolbar buttons fixed at the center */
-.toolbar-buttons {
-    position: absolute;
-    left: 50%; /* Start from the horizontal center */
-    transform: translateX(-50%); /* Center align */
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Add spacing between buttons */
-}
 @media (max-width: 768px) {
     .top-toolbar {
         flex-direction: column;
     }
-    
+
     .toolbar-buttons {
         margin-top: 10px;
     }
@@ -195,7 +173,7 @@ body {
     .editor-container {
         padding: 10px;
     }
-    
+
     .bottom-toolbar {
         flex-wrap: wrap;
     }
@@ -205,7 +183,6 @@ body {
     }
 }
 
-/* General button styles (unchanged for other buttons) */
 .toolbar-btn {
     position: relative;
     background-color: transparent;
@@ -213,7 +190,6 @@ body {
     cursor: pointer;
 }
 
-/* Undo, Redo, Save, and Clear hover effects */
 #undoBtn, #redoBtn, #saveBtn, #clearBtn {
     position: relative;
 }
@@ -222,7 +198,7 @@ body {
 #redoBtn:hover img,
 #saveBtn:hover img,
 #clearBtn:hover img {
-    opacity: 0; /* Hide the button icon on hover */
+    opacity: 0;
 }
 
 #undoBtn:hover::before,
@@ -240,20 +216,19 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Specific effects */
 #undoBtn:hover::before {
-    background-image: url('./assets/arrow.gif'); /* Same arrow GIF */
-    transform: translate(-50%, -50%) rotate(180deg); /* Rotate 180° */
+    background-image: url('./assets/arrow.gif');
+    transform: translate(-50%, -50%) rotate(180deg);
 }
 
 #redoBtn:hover::before {
-    background-image: url('./assets/arrow.gif'); /* Regular arrow */
+    background-image: url('./assets/arrow.gif');
 }
 
 #saveBtn:hover::before {
-    background-image: url('./assets/save.gif'); /* Save animation GIF */
+    background-image: url('./assets/save.gif');
 }
 
 #clearBtn:hover::before {
-    background-image: url('./assets/clear.gif'); /* Clear animation GIF */
+    background-image: url('./assets/clear.gif');
 }
