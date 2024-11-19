@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="top-toolbar">
+        <div class="logo-container">
+            <img src="./assets/logo.png" alt="Logo" class="logo">
+        </div>
+        <div class="toolbar-buttons">
+            <button id="undoBtn" class="toolbar-btn">
+                <img src="./assets/undo.png" alt="Undo" class="button-icon">
+            </button>
+            <button id="redoBtn" class="toolbar-btn">
+                <img src="./assets/redo.png" alt="Redo" class="button-icon">
+            </button>
+            <button id="saveBtn" class="toolbar-btn" title="Save as PDF">
+                <img src="./assets/save.png" alt="Save as PDF" class="button-icon">
+            </button>
+            <button id="clearBtn" class="toolbar-btn" title="Clear All">
+                <img src="./assets/clear.png" alt="Clear All" class="button-icon">
+            </button>
+        </div>
+    </div>
+    
+
+    <div class="editor-container">
+        <div class="editor" contenteditable="true"></div>
+    </div>
+
+    <div class="bottom-toolbar">
+        <button id="boldBtn" class="toolbar-btn" title="Bold">
+            <img src="./assets/bold.png" alt="Bold" class="button-icon">
+        </button>
+        <button id="italicBtn" class="toolbar-btn" title="Italic">
+            <img src="./assets/italic.png" alt="Italic" class="button-icon">
+        </button>
+        <button id="underlineBtn" class="toolbar-btn" title="Underline">
+            <img src="./assets/underline.png" alt="Underline" class="button-icon">
+        </button>
+        <button id="leftAlignBtn" class="toolbar-btn" title="Align Left">
+            <img src="./assets/left.png" alt="Align Left" class="button-icon">
+        </button>
+        <button id="centerAlignBtn" class="toolbar-btn" title="Align Center">
+            <img src="./assets/center.png" alt="Align Center" class="button-icon">
+        </button>
+        <button id="rightAlignBtn" class="toolbar-btn" title="Align Right">
+            <img src="./assets/right.png" alt="Align Right" class="button-icon">
+        </button>
+        <button id="decreaseFontBtn" class="toolbar-btn">-</button>
+        <span id="fontSizeDisplay" class="font-size-display"></span>
+        <button id="increaseFontBtn" class="toolbar-btn">+</button>
+        <select id="fontDropdown" class="toolbar-btn">
+            <option value="Arial">Font</option>
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Palatino">Palatino</option>
+            <option value="Garamond">Garamond</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Arial Black">Arial Black</option>
+            <option value="Impact">Impact</option>
+        </select>
+    </div>
+
+    <div class="add-text-container">
+        <button id="addTextBtn" class="add-text-btn">Add Text</button>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

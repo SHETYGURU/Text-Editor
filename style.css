@@ -1,0 +1,259 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.top-toolbar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+
+.editor-container {
+    flex-grow: 1;
+    margin-top: 50px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.editor {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+}
+
+
+.bottom-toolbar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: fixed;
+    bottom: 60px;
+    width: 100%;
+}
+
+.toolbar-btn {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    background-color: #ffffff; /* Changed to white */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.toolbar-btn:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.add-text-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.add-text-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+}
+
+.add-text-btn:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.text-box {
+    border: 1px solid #aaa;
+    padding: 10px;
+    margin: 5px;
+    position: absolute;
+    background-color: #fff;
+    cursor: grab;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 200px; /* Set minimum width */
+    min-height: 50px; /* Set minimum height */
+    resize: both; /* Allow resizing */
+    overflow: auto; /* Add scrollbars if needed */
+}
+
+.text-box.empty {
+    border-style: dashed;
+}
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.font-size-display {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+
+
+/* Top toolbar layout */
+.top-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    height: 60px; /* Ensure consistent height */
+}
+
+/* Logo aligned to the left */
+.logo-container {
+    position: absolute;
+    left: 10px; /* Adjust as needed */
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 120px;
+    height: 80px;
+}
+
+/* Toolbar buttons fixed at the center */
+.toolbar-buttons {
+    position: absolute;
+    left: 50%; /* Start from the horizontal center */
+    transform: translateX(-50%); /* Center align */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between buttons */
+}
+@media (max-width: 768px) {
+    .top-toolbar {
+        flex-direction: column;
+    }
+    
+    .toolbar-buttons {
+        margin-top: 10px;
+    }
+
+    .editor-container {
+        padding: 10px;
+    }
+    
+    .bottom-toolbar {
+        flex-wrap: wrap;
+    }
+    .logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* General button styles (unchanged for other buttons) */
+.toolbar-btn {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Undo, Redo, Save, and Clear hover effects */
+#undoBtn, #redoBtn, #saveBtn, #clearBtn {
+    position: relative;
+}
+
+#undoBtn:hover img,
+#redoBtn:hover img,
+#saveBtn:hover img,
+#clearBtn:hover img {
+    opacity: 0; /* Hide the button icon on hover */
+}
+
+#undoBtn:hover::before,
+#redoBtn:hover::before,
+#saveBtn:hover::before,
+#clearBtn:hover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Specific effects */
+#undoBtn:hover::before {
+    background-image: url('./assets/arrow.gif'); /* Same arrow GIF */
+    transform: translate(-50%, -50%) rotate(180deg); /* Rotate 180° */
+}
+
+#redoBtn:hover::before {
+    background-image: url('./assets/arrow.gif'); /* Regular arrow */
+}
+
+#saveBtn:hover::before {
+    background-image: url('./assets/save.gif'); /* Save animation GIF */
+}
+
+#clearBtn:hover::before {
+    background-image: url('./assets/clear.gif'); /* Clear animation GIF */
+}
